@@ -8,11 +8,13 @@ function clinical_ctnorm(V, lesion, vox, bb, DeleteIntermediateImages, UseTempla
 % UseStrippedTemplate = Normalize to scalp-stripped template (only if your data is already scalp stripped)
 % Prior to running this script, use SPM's DISPLAY
 %   Use this to set "0 0 0"mm to point to the Anterior Commissure
+% Version notes
+%  07072016 : improved support for SPM12 (finding brainmask.nii)
 % Example
 %   clinical_ctnorm ('C:\dir\img.nii');
 % clinical_ctnorm('ct.nii', '', [1 1 1], [-78 -112 -50; 78 76 85], true, true);
 
-fprintf('CT normalization version 4/4/2016\n');
+fprintf('CT normalization version 7/7/2016\n');
 if exist('UseStrippedTemplate','var') && (UseStrippedTemplate == true)
     cttemplate = fullfile(fileparts(which(mfilename)),'scct_stripped.nii');
 
@@ -59,9 +61,6 @@ if UseTemplateMask== 1
     if ~exist(TemplateMask, 'file')
         error('Unable to find %s', TemplateMask);
     end
-	if (clinical_filedir_exists(TemplateMask ) == 0)
-		TemplateMask = fullfile(spm('Dir'),'toolbox','FieldMap','brainmask.nii');
-	end;
 	if (clinical_filedir_exists(TemplateMask ) == 0) %report if files do not exist
   		fprintf('%s error: Mask not found %s\n',mfilename, TemplateMask );
   		return

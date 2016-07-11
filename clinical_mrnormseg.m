@@ -24,7 +24,7 @@ function clinical_mrnormseg (T1,lesion,T2, UseSCTemplates, vox, bb, DeleteInterm
 % UseSCTemplates = If 1, uses 'stroke control' template (good for elderly), if 0 then uses SPM's default tissue templates
 %			  				Set to 0.0 if you do not want a brain extracted T1
 
-fprintf('MR normalization-segmentation version 8/8/2014 - for use with high-resolution images that allow accurate segmentation\n');
+fprintf('MR normalization-segmentation version 7/7/2016 - for use with high-resolution images that allow accurate segmentation\n');
 
 lesionname = '';
 if nargin <1 %no files
@@ -219,6 +219,7 @@ for i=1:size(T1,1), %repeat for each image the user selected
         else
            pref = 'w';
         end
+        %next lines modified 7/7/2016 for SPM12 compatibility
         if length(T2) > 0
          reslicebatch{1}.spm.spatial.normalise.write.subj.resample =  {[fullfile(pth,[biasPrefix nam ext]) ,',1']; [slesionname ,',1']; [fullfile(pth2,[ nam2 ext2]),',1']};
          %reslicebatch{1}.spm.spatial.normalise.write.subj.resample =  {fullfile(pth,[biasPrefix nam ext]) ,',1; ',slesionname ,',1; ', fullfile(pth2,[ nam2 ext2]),',1'};
@@ -230,19 +231,14 @@ for i=1:size(T1,1), %repeat for each image the user selected
         end;
         reslicebatch{1}.spm.spatial.normalise.write.roptions.prefix = pref;
         reslicebatch{1}.spm.spatial.normalise.write.roptions.vox = vox(res,:) ;
-     
-        
-       reslicebatch{1}.spm.spatial.normalise.write.subj.resample
-     
-     save('newstruct.mat', 'reslicebatch');
-     error('123');
         spm_jobman('run',reslicebatch);
          %next: reslice tissue maps
          if ssthresh  > 0
             c1 = fullfile(pth,['c1' tissuePrefix nam ext]);
             c2 = fullfile(pth,['c2' tissuePrefix nam ext]);
             c3 = fullfile(pth,['c3' tissuePrefix nam ext]);
-            reslicebatch{1}.spm.spatial.normalise.write.subj.resample =  {c1 ,',1; ',c2,',1;' ,c3,',1'};
+            reslicebatch{1}.spm.spatial.normalise.write.subj.resample =  {[c1 ,',1']; [c2,',1']; [c3,',1']};
+            %reslicebatch{1}.spm.spatial.normalise.write.subj.resample =  {c1 ,',1; ',c2,',1;' ,c3,',1'};
             spm_jobman('run',reslicebatch);
             if (res == length(vox)) && (DeleteIntermediateImages == 1)
                 clinical_delete(c1);
