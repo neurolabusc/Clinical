@@ -65,6 +65,9 @@ end;
 if ~exist('isEnantiomorphic','var')
     isEnantiomorphic = true;
 end
+if isempty(lesion)
+    isEnantiomorphic = false;
+end
 if exist('AutoSetOrigin', 'var') && (AutoSetOrigin)
 	for i=1:size(T1,1)
  		v = deblank(T1(i,:));

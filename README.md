@@ -1,4 +1,4 @@
-# MRIcroGL
+# Clinical Toolbox for SPM
 
 ##### About
 
@@ -12,9 +12,17 @@ Place the "Clinical" folder inside SPM12's "toolbox" folder. Restart SPM and pre
 
 7-July-2016
  - Enhanced support for SPM12 (SPM8 not tested still might work).
+ - The command "MR segment-normalize" now includes the option for my implementation of enantiomorphic normalization (see Nachev et al., 2008). Users may also want to explore my script [nii_enat_norm](https://github.com/neurolabusc/nii_preprocess/blob/master/nii_enat_norm.m).
+
 
 ##### License
 
 This software includes a [BSD license](https://opensource.org/licenses/BSD-2-Clause)
+
+##### References
+
+Nachev P, Coulthard E, Jäger HR, Kennard C, Husain M. ([2008](https://www.ncbi.nlm.nih.gov/pubmed/18023365)) Enantiomorphic normalization of focally lesioned brains. Neuroimage. 39(3):1215-26.
+
+Rorden C, Bonilha L, Fridriksson J, Bender B, Karnath HO ([2012](https://www.ncbi.nlm.nih.gov/pubmed/22440645)) Age-specific CT and MRI templates for spatial normalization. NeuroImage. 61(4):957-65.
 
 
