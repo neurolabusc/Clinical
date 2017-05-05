@@ -1,4 +1,4 @@
-function biname = clinical_binarize (P);
+function biname = clinical_binarize (P)
 % input is grayscale image (continuous), output image created that is black or white (binary)
 % The image Max and Min are used to calculate the intensity midpoint (Min+(Max-Min)/2);
 %  Any voxel below this value is set to zero, else set to one

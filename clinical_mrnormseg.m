@@ -227,7 +227,7 @@ for i=1:size(T1,1), %repeat for each image the user selected
          reslicebatch{1}.spm.spatial.normalise.write.subj.resample =  {[fullfile(pth,[biasPrefix nam ext]) ,',1']; [slesionname ,',1']; [fullfile(pth2,[ nam2 ext2]),',1']};
          %reslicebatch{1}.spm.spatial.normalise.write.subj.resample =  {fullfile(pth,[biasPrefix nam ext]) ,',1; ',slesionname ,',1; ', fullfile(pth2,[ nam2 ext2]),',1'};
         elseif length(lesion) > 0
-             reslicebatch{1}.spm.spatial.normalise.write.subj.resample =  {[fullfile(pth,[biasPrefix nam ext]) ,',1']; [slesionname ,',1;']}
+             reslicebatch{1}.spm.spatial.normalise.write.subj.resample =  {[fullfile(pth,[biasPrefix nam ext]) ,',1']; [slesionname ,',1']}
 	     %reslicebatch{1}.spm.spatial.normalise.write.subj.resample =  {fullfile(pth,[biasPrefix nam ext]) ,',1; ',slesionname ,',1;'};
         else
             reslicebatch{1}.spm.spatial.normalise.write.subj.resample = {[fullfile(pth,[biasPrefix nam ext]) ,',1']}; %m is bias corrected
