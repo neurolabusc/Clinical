@@ -159,6 +159,15 @@ for i=1:size(T1,1), %repeat for each image the user selected
 		gtemplate = fullfile(spm('Dir'),'tpm','grey.nii');
 		wtemplate = fullfile(spm('Dir'),'tpm','white.nii');
  		ctemplate = fullfile(spm('Dir'),'tpm','csf.nii');
+        if ~exist(gtemplate,'file')
+            gtemplate  = fullfile(spm('Dir'),'toolbox','OldSeg','grey.nii');
+        end;
+        if ~exist(wtemplate,'file')
+            wtemplate  = fullfile(spm('Dir'),'toolbox','OldSeg','white.nii');
+        end;
+        if ~exist(ctemplate,'file')
+            ctemplate  = fullfile(spm('Dir'),'toolbox','OldSeg','csf.nii');
+        end;
      end;
      %report if templates are not found
      if (clinical_filedir_exists(gtemplate) == 0) || (clinical_filedir_exists(wtemplate) == 0) || (clinical_filedir_exists(ctemplate) == 0)  %report if files do not exist
