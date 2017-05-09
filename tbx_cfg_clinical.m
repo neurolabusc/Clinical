@@ -135,16 +135,18 @@ AutoSetOrigin.val    = {1};
 Enantiomorphic         = cfg_menu;
 Enantiomorphic.tag     = 'Enantiomorphic';
 Enantiomorphic.name    = 'Enantiomorphic normalization';
-Enantiomorphic.help    = {'Enantiomorphic normalization can outperform lesion masking, especially for large lesions. See Nachev et al., 2008: http://www.ncbi.nlm.nih.gov/pubmed/18023365'};
+Enantiomorphic.help    = {'Enantiomorphic normalization can outperform lesion masking, especially for large lesions. Newer 6-tissue is probably better but disables ignores some options (tissue cleanup) and requires SPM12. See Nachev et al., 2008: http://www.ncbi.nlm.nih.gov/pubmed/18023365'};
 Enantiomorphic.labels = {
                   'False'
-                  'True'
+                  'True(3)'
+                  'True(6)'
                   }';
 Enantiomorphic.values = {
                   0
                   1
+                  2
                   }';
-Enantiomorphic.val    = {1};
+Enantiomorphic.val    = {2};
 
 % ---------------------------------------------------------------------
 % Delete Intermediate
@@ -339,9 +341,10 @@ if exist('.git','dir') %only check for updates if program was installed with "gi
     end
     [~, r] = system('git status','-echo');
     if strfind(r,'behind')
-        warning('Your version of the clinical toolbox is out of date');
+        fprintf(2,'Your version of the clinical toolbox is out of date. To update run:\n');
+        fprintf(2,' cd(''%s''); system(''git pull'');\n', repoPath);
     else
-    	%fprintf('clinical toolbox up to date\n');
+        %fprintf('clinical toolbox up to date\n');
     end
 else %do nothing for now
     warning(sprintf('To enable updates run "!git clone git@github.com:neurolabusc/%s.git"',mfilename));

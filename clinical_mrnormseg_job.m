@@ -30,5 +30,11 @@ for i=1:length(anat)
   else
   	at2 = '';
   end;
-  clinical_mrnormseg(aanat,ales,at2,old, vox,bb, DelIntermediate,ssthresh, cleanup, Enantiomorphic, job.AutoSetOrigin);
+  if Enantiomorphic == 2
+    if ~strcmpi(spm('ver'),'SPM12'), error('6 tissue Enantiomorphic normalization requires SPM12'); end;
+    clinical_mrnormseg12(aanat,ales,at2, old, vox, bb, DelIntermediate, ssthresh, job.AutoSetOrigin)
+
+  else
+    clinical_mrnormseg(aanat,ales,at2,old, vox,bb, DelIntermediate,ssthresh, cleanup, Enantiomorphic, job.AutoSetOrigin);
+  end;
 end;

@@ -25,6 +25,11 @@ fprintf('Installed toolbox %s: to use launch SPM, choose "Batch" and select the 
 
 ##### Recent Versions
 
+9-May-2017
+ - Automatic check for updates.
+ - Compatibility fixes for SPM12
+ - Segment-Normalize includes the ability to use 6-tissue segmentation maps (instead of 3 tissue segmentation maps). Requires SPM12. This is the new default, older 3-tissue is still available for compatibility.
+
 7-July-2016
  - Enhanced support for SPM12 (SPM8 not tested still might work).
  - The command "MR segment-normalize" now includes the option for my implementation of enantiomorphic normalization (see Nachev et al., 2008). Users may also want to explore my script [nii_enat_norm](https://github.com/neurolabusc/nii_preprocess/blob/master/nii_enat_norm.m).
