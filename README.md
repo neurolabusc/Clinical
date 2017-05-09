@@ -14,7 +14,7 @@ There are two ways to install this toolbox.
 if isempty(which('spm')) || ~strcmp(spm('Ver'),'SPM12'), error('SPM12 required'); end;
 pth = fullfile(spm('Dir'),'toolbox');
 if ~exist(pth,'file'), error('SPM12 toolboxes not installed'); end;
-%cd(pth);
+cd(pth);
 tbx = 'Clinical';
 cmd = ['git clone git@github.com:neurolabusc', filesep, tbx, '.git'];
 system(cmd);
