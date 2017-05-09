@@ -2,9 +2,12 @@ function clinical = tbx_cfg_clinical
 % Configuration file for toolbox 'Clinical'
 
 % Chris Rorden
-% $Id: tbx_cfg_clinical.m 
+% $Id: tbx_cfg_clinical.m
 
-if ~isdeployed, addpath(fullfile(spm('Dir'),'toolbox','Clinical')); end
+if ~isdeployed,
+	addpath(fullfile(spm('Dir'),'toolbox','Clinical'));
+	checkForUpdate(fileparts(mfilename('fullpath')));
+end
 
 % ---------------------------------------------------------------------
 % bb Bounding box
@@ -30,7 +33,7 @@ vox.strtype = 'e';
 vox.num     = [1 3];
 vox.val	  = {[1 1 1]};
 %to match ch2 images vox.val	  = {[1 1 1]};
-% [0.735 0.735 0.735] with the default bounding box yields a 213x256x184 voxel image that works well for rendering (some inexpensive GPUs limited to volumes with 256 voxels) 
+% [0.735 0.735 0.735] with the default bounding box yields a 213x256x184 voxel image that works well for rendering (some inexpensive GPUs limited to volumes with 256 voxels)
 %vox.def     = @(val)spm_get_defaults('normalise.write.vox', val{:});
 
 % ---------------------------------------------------------------------
@@ -269,7 +272,7 @@ ssthresh.num     = [1  1];
 ssthresh.val = {0.005};
 
 % ---------------------------------------------------------------------
-% MRsegnorm 
+% MRsegnorm
 % ---------------------------------------------------------------------
 MRnormseg 	= cfg_exbranch;
 MRnormseg.tag     = 'MRnormseg';
@@ -280,7 +283,7 @@ MRnormseg.prog = @clinical_local_mrnormseg;
 %MRnormseg.vout = @vout_sextract;
 
 % ---------------------------------------------------------------------
-% CTnorm 
+% CTnorm
 % ---------------------------------------------------------------------
 CTnorm         = cfg_exbranch;
 CTnorm.tag     = 'CTnorm';
@@ -323,3 +326,25 @@ clinical_ctnorm_job(job);
 function clinical_local_mrnorm(job)
 %if ~isdeployed, addpath(fullfile(spm('dir'),'toolbox','Clinical')); end
 clinical_mrnorm_job(job);
+
+
+function checkForUpdate(repoPath)
+prevPath = pwd;
+cd(repoPath);
+if exist('.git','dir') %only check for updates if program was installed with "git clone"
+    [s, r] = system('git fetch origin','-echo');
+    if strfind(r,'fatal')
+        warning('Unabe to check for updates. Network issue?');
+        return;
+    end
+    [~, r] = system('git status','-echo');
+    if strfind(r,'behind')
+        warning('Your version of the clinical toolbox is out of date');
+    else
+    	%fprintf('clinical toolbox up to date\n');
+    end
+else %do nothing for now
+    warning(sprintf('To enable updates run "!git clone git@github.com:neurolabusc/%s.git"',mfilename));
+end
+cd(prevPath);
+%end checkForUpdate()
