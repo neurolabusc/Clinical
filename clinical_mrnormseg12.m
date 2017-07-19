@@ -43,7 +43,7 @@ if isempty(lesion) %if no lesion - standard normalization
    newSegSub(T1,'', UseXTemplate);
    %2: create 'b' (brain extracted) image without scalp signal
     bT1 = extractSub(ssthresh, T1, prefixSub('c2', T1), prefixSub('c1', T1));
-    rT1 = newSegWriteSub(T1, bT1, [0.9 0.9 0.9]); %#ok<NASGU>
+    rT1 = newSegWriteSub(T1, bT1, vox, bb);  %#ok<NASGU>
     %wT1 = newSegWriteSub(T1, T1, vox, bb); %#ok<NASGU>
    return;
 end
@@ -59,7 +59,7 @@ newSegSub(eT1,'', UseXTemplate);
 %4: create 'b' (brain extracted) image without scalp signal
 bT1 = extractSub(ssthresh, T1, prefixSub('c2', eT1), prefixSub('c1', eT1));
 %5: warp render image to standard space
-rT1 = newSegWriteSub(eT1, bT1, [0.9 0.9 0.9]); %#ok<NASGU>
+rT1 = newSegWriteSub(eT1, bT1, vox, bb); %#ok<NASGU>
 %6: warp lesion to standard space
 wrlesion = newSegWriteSub(eT1, rlesion, vox, bb, true); %#ok<NASGU>
 wT1 = newSegWriteSub(eT1, T1, vox, bb); %#ok<NASGU>
@@ -224,6 +224,7 @@ function  targetname = newSegWriteSub(t1name, targetname, vox, bb, binarize)
 %reslice img using pre-existing new-segmentation deformation field
 if isempty(targetname) || isempty(t1name), return; end;
 if ~exist('bb','var'), bb = [-78 -112 -50; 78 76 85]; end;
+warning('yy');bb
 if ~exist('vox','var'), vox =[2 2 2]; end;
 [pth,nam,ext, vol] = spm_fileparts(t1name); %#ok<NASGU>
 defname = fullfile(pth,['y_' nam ext]);

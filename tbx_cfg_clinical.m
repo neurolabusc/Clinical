@@ -6,7 +6,6 @@ function clinical = tbx_cfg_clinical
 
 if ~isdeployed,
 	addpath(fullfile(spm('Dir'),'toolbox','Clinical'));
-	checkForUpdate(fileparts(mfilename('fullpath')));
 end
 
 % ---------------------------------------------------------------------
@@ -138,8 +137,8 @@ Enantiomorphic.name    = 'Enantiomorphic normalization';
 Enantiomorphic.help    = {'Enantiomorphic normalization can outperform lesion masking, especially for large lesions. Newer 6-tissue is probably better but disables ignores some options (tissue cleanup) and requires SPM12. See Nachev et al., 2008: http://www.ncbi.nlm.nih.gov/pubmed/18023365'};
 Enantiomorphic.labels = {
                   'False'
-                  'True(3)'
-                  'True(6)'
+                  'True(3-tissue old segment)'
+                  'True(6-tissue new segment)'
                   }';
 Enantiomorphic.values = {
                   0
@@ -328,26 +327,3 @@ clinical_ctnorm_job(job);
 function clinical_local_mrnorm(job)
 %if ~isdeployed, addpath(fullfile(spm('dir'),'toolbox','Clinical')); end
 clinical_mrnorm_job(job);
-
-
-function checkForUpdate(repoPath)
-prevPath = pwd;
-cd(repoPath);
-if exist('.git','dir') %only check for updates if program was installed with "git clone"
-    [s, r] = system('git fetch origin','-echo');
-    if strfind(r,'fatal')
-        warning('Unabe to check for updates. Network issue?');
-        return;
-    end
-    [~, r] = system('git status','-echo');
-    if strfind(r,'behind')
-        fprintf(2,'Your version of the clinical toolbox is out of date. To update run:\n');
-        fprintf(2,' cd(''%s''); system(''git pull'');\n', repoPath);
-    else
-        %fprintf('clinical toolbox up to date\n');
-    end
-else %do nothing for now
-    warning(sprintf('To enable updates run "!git clone git@github.com:neurolabusc/%s.git"',mfilename));
-end
-cd(prevPath);
-%end checkForUpdate()
