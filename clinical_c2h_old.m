@@ -42,8 +42,7 @@ end; %for each volume
 
 function x = c2hsub(x);
 %Convert Cormack to Hounsfield 
- kUninterestingDarkUnits = 900; % e.g. -1000..-100
- kInterestingMidUnits = 200; %e.g. -100..+300
+ [kUninterestingDarkUnits, kInterestingMidUnits] = clinical_cormack();
  kScaleRatio = 10;% increase dynamic range of interesting voxels by 3
  kMax = kInterestingMidUnits * (kScaleRatio+1); 
  if x > kUninterestingDarkUnits 

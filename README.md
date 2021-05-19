@@ -25,6 +25,10 @@ fprintf('Installed toolbox %s: to use launch SPM, choose "Batch" and select the 
 
 ##### Recent Versions
 
+19-May-2021
+ - Warn user if toolbox folder named ['Clinical-master' instead of 'Clinical'](https://github.com/neurolabusc/Clinical/issues/6).
+ - Unify code for [Hounsfield to Cormack conversion](https://github.com/neurolabusc/Clinical/issues/2)
+
 9-May-2017
  - Automatic check for updates.
  - Compatibility fixes for SPM12

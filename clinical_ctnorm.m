@@ -195,8 +195,7 @@ end;
 fprintf('%s intensity range: %d\n',fnm,round(range));
 fprintf(' Ignore QFORM0 warning if reported next\n');
 %constants for conversion
-kUninterestingDarkUnits = 900; % e.g. -1000..-100
-kInterestingMidUnits = 200; %e.g. -100..+300
+[kUninterestingDarkUnits, kInterestingMidUnits] = clinical_cormack();
 kScaleRatio = 10;% increase dynamic range of interesting voxels by 3
 %convert image
 img = img - mn; %transloate so min value is 0

@@ -316,14 +316,29 @@ clinical.values  = {MRnormseg CTnorm MRnorm};
 %======================================================================
 function clinical_local_mrnormseg(job)
 %if ~isdeployed, addpath(fullfile(spm('dir'),'toolbox','Clinical')); end
+set_pth('clinical_mrnormseg_job.m');
 clinical_mrnormseg_job(job);
 
 %======================================================================
 function clinical_local_ctnorm(job)
 %if ~isdeployed, addpath(fullfile(spm('dir'),'toolbox','Clinical')); end
+set_pth('clinical_ctnorm_job.m');
 clinical_ctnorm_job(job);
 
 %======================================================================
 function clinical_local_mrnorm(job)
 %if ~isdeployed, addpath(fullfile(spm('dir'),'toolbox','Clinical')); end
+set_pth('clinical_mrnorm_job.m');
 clinical_mrnorm_job(job);
+
+function set_pth(mname)
+pth = fileparts(mfilename('fullpath'));
+[p,d] = fileparts(pth);
+if strcmpi(d,'Clinical-master')
+   warning('Please rename folder "Clinical-master" to be "Clinical": %s\n', pth); 
+end
+if exist(mname, 'file')
+    return; 
+end
+addpath(pth);
+%end set_pth()

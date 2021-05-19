@@ -70,8 +70,7 @@ end; %for each volume
 function out = h2csub(in,min);
 %======================
 %Convert Hounsfiled to Cormack
- kUninterestingDarkUnits = 900; % e.g. -1000..-100
- kInterestingMidUnits = 200; %e.g. -100..+300
+ [kUninterestingDarkUnits, kInterestingMidUnits] = clinical_cormack();
  kScaleRatio = 10;% increase dynamic range of interesting voxels by 3
 
  v16 = in-min;

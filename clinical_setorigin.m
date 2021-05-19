@@ -82,7 +82,11 @@ if modality == 2
         template = fullfile(spm('Dir'),'toolbox','OldNorm','T2.nii');
     end
 elseif modality == 3
-    template  = fullfile(spm('Dir'),'toolbox','Clinical','scct.nii');
+    tbx = 'Clinical-master';
+    if ~exist(fullfile(spm('Dir'),'toolbox',tbx), 'dir')
+        tbx = 'Clinical';
+    end
+    template  = fullfile(spm('Dir'),'toolbox',tbx,'scct.nii');
 elseif modality == 4
     template = fullfile(spm('Dir'),'templates','EPI.nii');
     if ~exist(template, 'file')
